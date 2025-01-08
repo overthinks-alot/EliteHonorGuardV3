@@ -8,6 +8,9 @@
 <body>
     <div class="container">
         <h1>Elite Honor Guard Database</h1>
+        <div class="quote-box">
+            <p id="daily-quote"></p>
+        </div>
         <div class="login-form">
             <h2>Staff Login</h2>
             <form id="loginForm">
@@ -33,8 +36,76 @@
             'EliteMajor': { password: '48996486', role: 'staff' },
             'EliteCaptain': { password: '32918729', role: 'staff' },
             'admin': { password: 'admin324968', role: 'staff' },
-            
         };
+
+        // Daily quotes array
+        const quotes = [
+            "Leadership is not about being in charge. It is about taking care of those in your charge. - Simon Sinek",
+            "With great power comes great responsibility. - Uncle Ben",
+            "Justice will not be served until those who are unaffected are as outraged as those who are. - Benjamin Franklin",
+            "Integrity is doing the right thing, even when no one is watching. - C.S. Lewis",
+            "The true test of leadership is how well you function in a crisis. - Brian Tracy",
+            "A leader is one who knows the way, goes the way, and shows the way. - John C. Maxwell",
+            "Discipline is the bridge between goals and accomplishment. - Jim Rohn",
+            "Unity is strength... when there is teamwork and collaboration, wonderful things can be achieved. - Mattie Stepanek",
+            "The supreme quality for leadership is unquestionably integrity. - Dwight D. Eisenhower",
+            "Guard with honor, lead with pride, serve with distinction.",
+            "Excellence is not a skill. It's an attitude. - Ralph Marston",
+            "Where there is unity there is always victory. - Publilius Syrus",
+            "Leadership and learning are indispensable to each other. - John F. Kennedy",
+            "The task of the leader is to get their people from where they are to where they have not been. - Henry Kissinger",
+            "Honor is not a mere word, but a way of life.",
+            
+            "In the face of adversity, our true character emerges.",
+            "Protect the innocent, guide the misguided, remove the malicious.",
+            "Fair judgment is the cornerstone of respected leadership.",
+            "To serve with honor is to lead by example.",
+            "Consistency in enforcement builds trust in leadership.",
+            "The strength of the team is each individual member. The strength of each member is the team. - Phil Jackson",
+            "True authority is earned through respect, not demanded through fear.",
+            "Guard not just the rules, but the spirit of the community.",
+            "Mercy and justice must walk hand in hand.",
+            "Your actions today shape the community of tomorrow.",
+            "Be swift to hear, slow to speak, slower to anger. - James 1:19",
+            "The mark of a good decision is how well it works after it's been implemented.",
+            "Protect without prejudice, serve without favoritism.",
+            "Every decision we make ripples through the community.",
+            "Stand firm in justice, yet be gentle in approach.",
+            "The true measure of leadership is influence, not authority. - John Maxwell",
+            "In the service of others lies the path to greatness.",
+            "Vigilance is the price of safety.",
+            "Trust is earned in drops but lost in buckets.",
+            "Lead with courage, moderate with wisdom, serve with honor.",
+            "The quality of a leader is reflected in the standards they set for themselves. - Ray Kroc",
+            "Justice without mercy is cold; mercy without justice is weak.",
+            "Your badge is a symbol of trust - wear it with pride, use it with wisdom.",
+            "The greatest honor is serving others.",
+            "Firm but fair - the hallmark of good moderation.",
+            "Unity in purpose, diversity in approach, excellence in execution.",
+            "What you allow is what will continue.",
+            "Be the guardian others aspire to become.",
+            "Protect the peace, preserve the order, promote the good.",
+            "The authority to lead is earned through the ability to serve."
+        ];
+
+        function getQuoteOfTheDay() {
+            // Get today's date as a string (YYYY-MM-DD)
+            const today = new Date().toISOString().split('T')[0];
+            
+            // Use the date string to generate a consistent index for the day
+            let index = 0;
+            for (let i = 0; i < today.length; i++) {
+                index += today.charCodeAt(i);
+            }
+            
+            // Use modulo to get an index within the quotes array
+            index = index % quotes.length;
+            
+            return quotes[index];
+        }
+
+        // Set the quote when page loads
+        document.getElementById('daily-quote').textContent = getQuoteOfTheDay();
 
         function login() {
             const username = document.getElementById('username').value;
@@ -42,11 +113,9 @@
 
             const account = staffAccounts[username];
             if (account && account.password === password) {
-                // Store login info in sessionStorage (cleared when browser closes)
                 sessionStorage.setItem('loggedInUser', username);
                 sessionStorage.setItem('userRole', account.role);
                 
-                // Redirect based on role
                 if (account.role === 'admin') {
                     window.location.href = 'admin.html';
                 } else {
