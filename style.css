@@ -6,7 +6,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Open Sans', sans-serif;
     background-color: #1a1a1a;
     color: #fff;
 }
@@ -18,95 +18,236 @@ body {
 }
 
 h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
     color: var(--light-red);
     text-align: center;
     margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+h2 {
+    font-family: 'Cinzel', serif;
+    color: var(--light-red);
+    font-size: 1.2rem;
+    margin: 0 0 20px 0;
+    font-weight: 500;
+}
+
+/* Login Form */
+.login-form {
+    background: var(--dark-red);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 input, select, textarea {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: none;
-    border-radius: 3px;
-    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--light-red);
+    box-shadow: 0 0 10px rgba(139, 0, 0, 0.2);
+    outline: none;
 }
 
 button {
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     background-color: var(--light-red);
     color: #fff;
     border: none;
-    border-radius: 3px;
+    border-radius: 8px;
     cursor: pointer;
-    margin-bottom: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 button:hover {
     background-color: #ff6666;
+    transform: translateY(-2px);
 }
 
+/* Header and Navigation */
 .header {
-    margin-bottom: 30px;
-}
-
-.punishment-form {
-    background-color: var(--dark-red);
+    background: linear-gradient(135deg, var(--dark-red) 0%, #2c0000 100%);
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     margin-bottom: 30px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.punishment-list {
-    background-color: var(--dark-red);
-    padding: 20px;
-    border-radius: 5px;
+.user-info {
+    color: #fff;
+    font-size: 1.1em;
 }
 
+/* Punishment Form and List */
+.punishment-form, .punishment-list {
+    background: var(--dark-red);
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styles */
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     margin-top: 20px;
 }
 
-th, td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid var(--light-red);
-}
-
 th {
-    background-color: rgba(255, 68, 68, 0.2);
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
 }
 
-.delete-btn {
-    background-color: #ff0000;
-    color: white;
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Badge Styles */
+.badge {
     padding: 5px 10px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.warning {
+    background: #ffd700;
+    color: #000;
+}
+
+.strike {
+    background: #ff6b6b;
+    color: #fff;
+}
+
+.termination {
+    background: #dc3545;
+    color: #fff;
+}
+
+/* Button Variations */
+.delete-btn {
+    background-color: #dc3545;
+    padding: 8px 15px;
     width: auto;
+    font-size: 0.9rem;
 }
 
 .delete-btn:hover {
-    background-color: #cc0000;
+    background-color: #c82333;
 }
 
 .logout-btn {
-    background-color: var(--light-red);
-    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
     padding: 10px 20px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
     width: auto;
-    float: right;
-    margin: 10px;
+    margin-left: 15px;
 }
 
-#loginSection {
-    max-width: 400px;
-    margin: 0 auto;
-} 
+.logout-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Quote Box */
+.quote-box {
+    text-align: center;
+    margin: 20px auto 40px;
+    max-width: 800px;
+    padding: 30px;
+    color: var(--light-red);
+    font-style: italic;
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+#daily-quote {
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Public Link */
+.public-link {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.public-link a {
+    color: var(--light-red);
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+}
+
+.public-link a:hover {
+    color: #ff6666;
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .user-info {
+        margin-top: 15px;
+    }
+
+    .quote-box {
+        font-size: 1em;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .punishment-form, .punishment-list {
+        padding: 15px;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+
+    .badge {
+        padding: 3px 8px;
+    }
+}
