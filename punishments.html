@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Elite Honor Guard - Punishment Records</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="public-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="public-header">
+        <div class="header-content">
+            <h1>Elite Honor Guard</h1>
+            <div class="header-divider"></div>
+            <h2>Official Punishment Records</h2>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="stats-panel">
+            <div class="stat-box">
+                <h3>Total Records</h3>
+                <span id="totalCount">0</span>
+            </div>
+            <div class="stat-box">
+                <h3>Warnings</h3>
+                <span id="warningCount">0</span>
+            </div>
+            <div class="stat-box">
+                <h3>Strikes</h3>
+                <span id="strikeCount">0</span>
+            </div>
+            <div class="stat-box">
+                <h3>Terminations</h3>
+                <span id="terminationCount">0</span>
+            </div>
+        </div>
+
+        <div class="search-section">
+            <input type="text" id="searchInput" placeholder="Search by player name..." class="search-box">
+        </div>
+
+        <div class="records-container">
+            <table class="records-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Player Name</th>
+                        <th>Type</th>
+                        <th>Reason</th>
+                        <th>Staff Member</th>
+                    </tr>
+                </thead>
+                <tbody id="punishmentsList">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <p>Elite Honor Guard Database © 2024</p>
+    </footer>
+
+    <script>
+        function loadPunishments() {
+            const punishments = JSON.parse(localStorage.getItem('punishments') || '[]');
+            const tbody = document.getElementById('punishmentsList');
+            tbody.innerHTML = '';
+
+            // Update stats
+            document.getElementById('totalCount').textContent = punishments.length;
+            document.getElementById('warningCount').textContent = 
+                punishments.filter(p => p.punishment_type === 'Warning').length;
+            document.getElementById('strikeCount').textContent = 
+                punishments.filter(p => p.punishment_type === 'Strike').length;
+            document.getElementById('terminationCount').textContent = 
+                punishments.filter(p => p.punishment_type === 'Termination').length;
+
+            punishments.forEach(punishment => {
+                const row = document.createElement('tr');
+                row.className = `type-${punishment.punishment_type.toLowerCase()}`;
+                row.innerHTML = `
+                    <td>${new Date(punishment.created_at).toLocaleString()}</td>
+                    <td>${punishment.player_name}</td>
+                    <td><span class="badge ${punishment.punishment_type.toLowerCase()}">${punishment.punishment_type}</span></td>
+                    <td>${punishment.reason}</td>
+                    <td>${punishment.staff_member}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('keyup', function(e) {
+            const searchText = e.target.value.toLowerCase();
+            const rows = document.getElementById('punishmentsList').getElementsByTagName('tr');
+
+            for (let row of rows) {
+                const playerName = row.getElementsByTagName('td')[1].textContent.toLowerCase();
+                row.style.display = playerName.includes(searchText) ? '' : 'none';
+            }
+        });
+
+        // Load punishments when page loads
+        loadPunishments();
+    </script>
+</body>
+</html> 

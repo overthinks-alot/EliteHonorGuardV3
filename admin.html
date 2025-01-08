@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Elite Honor Guard Database - Admin</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Elite Honor Guard Database - Admin Panel</h1>
+            <div class="user-info">
+                Welcome, <span id="username"></span>
+                <button onclick="logout()" class="logout-btn">Logout</button>
+            </div>
+        </div>
+
+        <div class="punishment-list">
+            <h2>All Punishments</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Player Name</th>
+                        <th>Type</th>
+                        <th>Reason</th>
+                        <th>Staff Member</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="punishmentsList">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Check authentication
+        const loggedInUser = sessionStorage.getItem('loggedInUser');
+        const userRole = sessionStorage.getItem('userRole');
+
+        if (!loggedInUser || userRole !== 'admin') {
+            window.location.href = 'index.html';
+        }
+
+        document.getElementById('username').textContent = loggedInUser;
+
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = 'index.html';
+        }
+
+        function loadPunishments() {
+            const punishments = JSON.parse(localStorage.getItem('punishments') || '[]');
+            const tbody = document.getElementById('punishmentsList');
+            tbody.innerHTML = '';
+
+            punishments.forEach((punishment, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${new Date(punishment.created_at).toLocaleString()}</td>
+                    <td>${punishment.player_name}</td>
+                    <td><span class="badge ${punishment.punishment_type.toLowerCase()}">${punishment.punishment_type}</span></td>
+                    <td>${punishment.reason}</td>
+                    <td>${punishment.staff_member}</td>
+                    <td><button onclick="deletePunishment(${index})" class="delete-btn">Delete</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function deletePunishment(index) {
+            if (confirm('Are you sure you want to delete this punishment?')) {
+                let punishments = JSON.parse(localStorage.getItem('punishments') || '[]');
+                punishments.splice(index, 1);
+                localStorage.setItem('punishments', JSON.stringify(punishments));
+                loadPunishments();
+            }
+        }
+
+        // Load punishments when page loads
+        loadPunishments();
+    </script>
+</body>
+</html> 
